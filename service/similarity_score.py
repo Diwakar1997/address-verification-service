@@ -53,7 +53,7 @@ def compute_siilarity_score(app_config,address_id,warehouse_id,address):
     cosine_sim = cosine_similarity(tf_mat_add,matrix).flatten()
     similarAddressIdx = cosine_sim[cosine_sim < 1.0].argsort()[::-1][:1]
 
-    print({'user_address_id' : address_id, 'similar_user_id': user_addresses[similarAddressIdx[0]],'similarity_score':cosine_sim[similarAddressIdx][0]})
+    return {'user_address_id' : address_id, 'similar_user_id': user_addresses[similarAddressIdx[0]],'similarity_score':cosine_sim[similarAddressIdx][0]}
 
 def remove_lru():
     global warehouse_tfidf

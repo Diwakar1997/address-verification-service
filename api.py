@@ -40,7 +40,7 @@ def require_appkey(view_function):
     return decorated_function
 
 
-@app.route(app.config['APPLICATION_ROOT']+'/similar-address', methods=['POST'])
+@app.route(app.config['APPLICATION_ROOT']+'/similar-address', methods=['GET'])
 @require_appkey
 def get_similar_address():
     try:
@@ -51,13 +51,11 @@ def get_similar_address():
             warehouse_id = json_content['warehouse_id']
             address = json_content['address']
 
-            similarity_score.compute_siilarity_score(app.config,address_id,warehouse_id,address)
-
-            # print(address_id)
-            # print(warehouse_id)
-            # print(address)
-
-            return Response(status=201, mimetype='application/json')
+            similar_result = similarity_score.compute_siilarity_score(app.config,address_id,warehouse_id,address)
+            response = app.response_class(response=json.dumps(similar_result),
+                                  status=200,
+                                  mimetype='application/json')
+            return response
 
         else:
             return Response(500)
