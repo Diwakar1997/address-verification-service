@@ -1,11 +1,11 @@
-# FROM ubuntu:latest
-FROM python:3.8-slim-buster
+FROM ubuntu:latest
+# FROM python:3.8-slim-buster
 
-# RUN apt-get update \
-#   && apt-get install -y python3-pip python3-dev \
-#   && cd /usr/local/bin \
-#   && ln -s /usr/bin/python3 python \
-#   && pip3 install --upgrade pip
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
 
 # update pip
 # RUN python3.6 -m pip install pip --upgrade
@@ -22,12 +22,12 @@ ENV APP_CONFIG_FILE=config/stage.py
 
 COPY . /app
 
-# ENTRYPOINT [ "python3" ]
+ENTRYPOINT [ "python3" ]
 
 EXPOSE 5000
 
 # RUN pwd
 
-# CMD ["app/api.py"]
+CMD ["app/api.py"]
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
