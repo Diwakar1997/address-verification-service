@@ -41,7 +41,7 @@ def warehouse_address_tfidf(app_config):
     inner join dim_user_address ua on o.user_address_id = ua.id
     inner join dim_order_product_details opd on o.order_id = opd.order_id
     where order_date >= dateadd(month,-6,current_date) 
-    and o.status not in ('cancel','discarded')
+    and o.status not in ('cancel','discarded','pending','hold','orderinprocess')
     and opd.warehouse_id = {0}
     """
 
