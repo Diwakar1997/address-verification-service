@@ -22,12 +22,12 @@ ENV APP_CONFIG_FILE=config/stage.py
 
 COPY . /app
 
-ENTRYPOINT [ "python3" ]
+# ENTRYPOINT [ "python3" ]
 
 EXPOSE 5000
 
 # RUN pwd
 
-CMD ["app/api.py"]
+# CMD ["app/api.py"]
 
-# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python3", "-m" , "flask","--app","app/api.py", "run", "--host=0.0.0.0"]
