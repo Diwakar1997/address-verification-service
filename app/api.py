@@ -49,8 +49,8 @@ def require_appkey(view_function):
     return decorated_function
 
 
-@app.route(app.config['APPLICATION_ROOT']+'/similar-address', methods=['GET'])
-@require_appkey
+@app.route(app.config['APPLICATION_ROOT']+'/similar-address', methods=['POST'])
+# @require_appkey
 def get_similar_address():
     try:
         content_type = request.headers.get('Content-Type')
