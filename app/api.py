@@ -23,16 +23,16 @@ app.config.from_envvar('APP_CONFIG_FILE')
 app.config['APPLICATION_ROOT'] = '/address-verification/api/v1'
 os.environ['AWS_ACCESS_KEY_ID'] = app.config['AWS_ACCESS_KEY_ID']
 os.environ['AWS_SECRET_ACCESS_KEY'] = app.config['AWS_SECRET_ACCESS_KEY']
-app.add_url_rule(app.config['APPLICATION_ROOT'] + "/healthcheck", "healthcheck", view_func=lambda: health.run())
+app.add_url_rule(app.config['APPLICATION_ROOT'] + "/dummy", "healthcheck", view_func=lambda: health.run())
 app.add_url_rule(app.config['APPLICATION_ROOT'] + "/environment", "environment", view_func=lambda: envdump.run())
 executor = Executor(app)
 handler = watchtower.CloudWatchLogHandler(app.config['LOG_GROUP_NAME'])
 app.logger.addHandler(handler)
 logging.getLogger("werkzeug").addHandler(handler)
-@app.route(app.config['APPLICATION_ROOT']+'/dummy', methods=['GET'])
-def home():
-    logging.getLogger("werkzeug").info("Home Page API called")
-    return "<h1>address-verification-service</h1>"
+# @app.route(app.config['APPLICATION_ROOT']+'/dummy', methods=['GET'])
+# def home():
+#     logging.getLogger("werkzeug").info("Home Page API called")
+#     return "<h1>address-verification-service</h1>"
 
 
 def require_appkey(view_function):
