@@ -28,7 +28,7 @@ app.add_url_rule(app.config['APPLICATION_ROOT'] + "/environment", "environment",
 executor = Executor(app)
 handler = watchtower.CloudWatchLogHandler(app.config['LOG_GROUP_NAME'])
 app.logger.addHandler(handler)
-loging.getLogger("werkzeug").addHandler(handler)
+logging.getLogger("werkzeug").addHandler(handler)
 # @app.route(app.config['APPLICATION_ROOT']+'/dummy', methods=['GET'])
 # def home():
 #     logging.getLogger("werkzeug").info("Home Page API called")
