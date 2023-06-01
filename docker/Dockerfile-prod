@@ -1,0 +1,33 @@
+FROM ubuntu:latest
+# FROM python:3.8-slim-buster
+
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
+
+# update pip
+# RUN python3.6 -m pip install pip --upgrade
+# RUN python3.6 -m pip install wheel
+
+# We copy just the requirements.txt first to leverage Docker cache
+COPY ./requirements.txt /app/requirements.txt
+
+WORKDIR /app
+
+RUN pip3 install -r requirements.txt
+
+ENV APP_CONFIG_FILE=config/stage.py
+
+COPY . /app
+
+ENTRYPOINT [ "python3" ]
+
+EXPOSE 5000
+
+# RUN pwd
+
+CMD ["app/api.py"]
+
+# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

@@ -8,22 +8,31 @@ from service import tfidf_updation,similarity_score
 from flask_executor import Executor
 import ssl
 from functools import wraps
+from healthcheck import HealthCheck, EnvironmentDump
 
 
 os.environ["FLASK_APP"] = 'api.py'
+os.environ['AWS_DEFAULT_REGION'] = 'ap-south-1'
 # logging.basicConfig(level=logging.INFO)
 
 app = flask.Flask(__name__)
+
+health = HealthCheck()
+envdump = EnvironmentDump()
 app.config.from_envvar('APP_CONFIG_FILE')
-app.config['APPLICATION_ROOT'] = '/address-verification/api/v1'
+app.config['APPLICATION_ROOT'] = '/addressverificationservice/api/v1'
+os.environ['AWS_ACCESS_KEY_ID'] = app.config['AWS_ACCESS_KEY_ID']
+os.environ['AWS_SECRET_ACCESS_KEY'] = app.config['AWS_SECRET_ACCESS_KEY']
+app.add_url_rule(app.config['APPLICATION_ROOT'] + "/dummy", "healthcheck", view_func=lambda: health.run())
+app.add_url_rule(app.config['APPLICATION_ROOT'] + "/environment", "environment", view_func=lambda: envdump.run())
 executor = Executor(app)
 handler = watchtower.CloudWatchLogHandler(app.config['LOG_GROUP_NAME'])
 app.logger.addHandler(handler)
 logging.getLogger("werkzeug").addHandler(handler)
-@app.route(app.config['APPLICATION_ROOT']+'/dummy', methods=['GET'])
-def home():
-    logging.getLogger("werkzeug").info("Home Page API called")
-    return "<h1>address-verification-service</h1>"
+# @app.route(app.config['APPLICATION_ROOT']+'/dummy', methods=['GET'])
+# def home():
+#     logging.getLogger("werkzeug").info("Home Page API called")
+#     return "<h1>address-verification-service</h1>"
 
 
 def require_appkey(view_function):
@@ -40,8 +49,8 @@ def require_appkey(view_function):
     return decorated_function
 
 
-@app.route(app.config['APPLICATION_ROOT']+'/similar-address', methods=['GET'])
-@require_appkey
+@app.route(app.config['APPLICATION_ROOT']+'/similar-address', methods=['POST'])
+# @require_appkey
 def get_similar_address():
     try:
         content_type = request.headers.get('Content-Type')
