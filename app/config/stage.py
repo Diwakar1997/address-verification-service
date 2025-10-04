@@ -1,11 +1,11 @@
 DEBUG = True
-HAPPY_OFFER_HOST = "172.40.2.62"
-HAPPY_OFFER_USERNAME = "dealshare"
-HAPPY_OFFER_PASSWORD = "mkjfi56@eDFD434kj$4dD"
-HAPPY_OFFER_PASSWORD_SQLALCHEMY = "mkjfi56%40eDFD434kj$4dD"
-S3_BUCKET_ML = "ds-analytics-stage"
-S3_BUCKET_ANALYTICS = "ds-analytics-stage"
-LOG_GROUP_NAME = "stage-address-verification-service"
+HAPPY_OFFER_HOST = 
+HAPPY_OFFER_USERNAME =
+HAPPY_OFFER_PASSWORD =
+HAPPY_OFFER_PASSWORD_SQLALCHEMY = 
+S3_BUCKET_ML =
+S3_BUCKET_ANALYTICS = 
+LOG_GROUP_NAME = 
 
 #stage_redshift
 # REDSHIFT_HOST = "redshift-cluster-1.curmktdbgqwh.ap-south-1.redshift.amazonaws.com"
@@ -14,11 +14,11 @@ LOG_GROUP_NAME = "stage-address-verification-service"
 # REDSHIFT_PASSWORD = "QE7PqqCFW2atY#"
 
 
-REDSHIFT_HOST = "ds-redshift.curmktdbgqwh.ap-south-1.redshift.amazonaws.com"
-REDSHIFT_DATABASE = "analytics"
-REDSHIFT_USERNAME = "redshiftdbuser"
-REDSHIFT_PASSWORD = "PcvJqmDfh$468"
+REDSHIFT_HOST = 
+REDSHIFT_DATABASE = 
+REDSHIFT_USERNAME = 
+REDSHIFT_PASSWORD = 
 
 #s3
-AWS_ACCESS_KEY_ID = "AKIAWJUEKAUPSMSPXA6D"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = 
+AWS_SECRET_ACCESS_KEY = 
